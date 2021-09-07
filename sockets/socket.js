@@ -4,7 +4,7 @@ const { io } = require("../index");
 // Sockets messages
 io.on("connection", (client) => {
   console.log("Cliente conectado");
-
+  console.log(client.handshake.headers);
   const [validate, uid] = validateJWT(client.handshake.headers["x-token"]);
 
   if (!validate) {
