@@ -15,6 +15,16 @@ io.on("connection", (client) => {
   // Client connected
   userConnected(uid);
 
+  // User enters room
+  // Global room (io), private room (client)
+  client.join(uid);
+
+  // Listen private-message
+  client.on("private-message", (payload) => {
+    console.log(payload);
+    io.to(payload.for).emit("private-message", payload);
+  });
+
   client.on("disconnect", () => {
     console.log("Cliente desconectado");
     // Client disconnected
